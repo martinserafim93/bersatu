@@ -1,169 +1,204 @@
 # Portal BERSATU - Project Overview
 
-<!-- blueprint:source-hash c76932ac7b274173b66befb8d9ab3b8565d26df5cc55645d242a3b1ca788f893 -->
+<!-- blueprint:source-hash 22c3c208d5a86edc193f2b93067510bc3a1fef21ad9187a99555d9675f50ea1d -->
 
-> Portal web responsif berbasis Progressive Web App (PWA) untuk *Strategi Penguatan Early Warning System (EWS) Melalui Promosi Kerukunan Umat Beragama Berbasis Digital* pada Kantor Wilayah Kementerian Agama Provinsi Kalimantan Utara (Proyek Perubahan PKN Tk. II Angkatan XXX Tahun 2026 - H. Iramsyah Noor, S.Ag., M.A.P.; Mentor: Prof. Dr. Muhammad Ali Ramdhani, S.TP., M.T.; Coach: Dr. Neneng Maria Kiptyah, M.Pd.; Penguji: Drs. Seno Hartono, DESS; lokus piloting awal Kab. Malinau dengan cakupan penuh 5 Kabupaten/Kota dan 55 Kecamatan se-Kaltara).
+> Portal web responsif berbasis Progressive Web App (PWA, nama merek/ikon: **BERSATU**) untuk *Strategi Penguatan Early Warning System (EWS) Melalui Promosi Kerukunan Umat Beragama Berbasis Digital* pada Kantor Wilayah Kementerian Agama Provinsi Kalimantan Utara (Proyek Perubahan PKN Tk. II Angkatan XXX Tahun 2026 - H. Iramsyah Noor, S.Ag., M.A.P.; Mentor: Prof. Dr. Muhammad Ali Ramdhani, S.TP., M.T.; Coach: Dr. Neneng Maria Kiptyah, M.Pd.; Penguji: Drs. Seno Hartono, DESS; lokus piloting awal Kab. Malinau dengan cakupan penuh 5 Kabupaten/Kota dan 55 Kecamatan se-Kaltara).
 
 ## Problem
 
-Kalimantan Utara meraih skor Indeks Kerukunan Umat Beragama (IKUB) tertinggi nasional pada tahun 2025 (**87,48 / Sangat Tinggi**, peringkat 1 nasional), namun menghadapi kesenjangan antara modal sosial yang kuat dan infrastruktur tata kelola digital EWS di tingkat Kanwil yang belum terintegrasi (skor prioritas metode **ASTRID: 30/30**). Pelaporan potensi konflik keagamaan selama ini masih manual, parsial, lisan, dan terfragmentasi per kabupaten/kota tanpa basis data provinsi maupun pemetaan spasial, sehingga respons mitigasi lambat (**3 hingga 7 hari** pascainsiden/viral). Di wilayah seluas **75.467,70 km²** (5 Kabupaten/Kota, 55 Kecamatan, 6 agama, 11 Lembaga Adat, 15 Paguyuban) yang didominasi jalur sungai/udara perintis ber-*blank spot*, berbatasan langsung dengan Sabah-Sarawak (Malaysia), serta memiliki **64% masyarakat yang belum memahami PBM No. 9 & No. 8 Tahun 2006**, Portal BERSATU mengintegrasikan tiga terobosan (*Nilai Ekoteologi*, *Kelembagaan Agen Kerukunan Digital*, dan *Teknologi EWS-GIS + Media Hub + AI Chatbot*) untuk deteksi dini *real-time* dan penguatan imunitas sosial dari hoaks SARA maupun paham ekstremis transnasional.
+Kalimantan Utara menempati **peringkat pertama (#1) nasional Indeks Kerukunan Umat Beragama (IKUB) tahun 2025**, namun menghadapi kesenjangan antara modal sosial yang kuat dan infrastruktur tata kelola digital EWS tingkat Kanwil yang belum terintegrasi (skor prioritas metode **ASTRID: 30/30**, di atas isu kompetensi digital ASN/Penyuluh 3TP skor 23 dan data rumah ibadah/wakaf spasial skor 21). Pelaporan potensi konflik keagamaan sebelumnya masih manual, parsial, lisan, dan terlokalisasi per kabupaten/kota tanpa basis data provinsi maupun pemetaan spasial, sehingga respons mitigasi lambat (**3-7 hari** pascainsiden/viral). Di wilayah seluas **75.467 km²** (5 Kabupaten/Kota, 55 Kecamatan) yang sebagian pedalamannya hanya terjangkau via sungai/udara perintis ber-*blank spot*, berbatasan langsung dengan Sabah-Sarawak (Malaysia), serta memiliki **64% masyarakat yang belum memahami PBM No. 9 & No. 8 Tahun 2006** (data PKUB), Portal BERSATU mengintegrasikan tiga terobosan (*Nilai Ekoteologi*, *Kelembagaan Agen Kerukunan Digital*, dan *Teknologi EWS-GIS + Media Hub + Chatbot*) untuk deteksi dini *real-time* dan penguatan imunitas sosial.
 
 ## Users
 
-Sistem menggunakan **Role-Based Access Control (RBAC)** dengan 5 kelompok aktor utama (7 nilai ENUM `users.role`) serta akses publik:
+Sistem menerapkan **Role-Based Access Control (RBAC)** dengan 5 kelompok pengguna terautentikasi (7 nilai ENUM `users.role`) serta akses publik:
 
-- **Pelapor Khusus Lapangan (*Field Reporter* - `penyuluh_ipari`, `kua`, `fkub`):** Penyuluh Agama (IPARI), Kepala KUA, Pengurus FKUB, serta Tokoh Agama dan Lembaga Adat. Menginput laporan "Lapor Dini" dengan *auto-geotagging* GPS, mengunggah bukti (foto, PDF, audio), menyimpan draft laporan saat *offline*, dan memantau riwayat tiket mandiri.
-- **Masyarakat Terverifikasi (*Verified Citizen* - `masyarakat`):** Warga terverifikasi yang dapat mengirim aduan indikasi awal (masuk ke antrean moderasi verifikator sebelum tampil di dashboard resmi), mengakses Chatbot "Tanya", direktori rumah ibadah, dan layanan darurat hotline FKUB.
-- **Verifikator / Operator (`verifikator`):** Petugas Kankemenag Kabupaten/Kota dan Kanwil yang memverifikasi laporan lapangan dan antrean aduan masyarakat, menyaring laporan palsu (`ditolak_hoaks`), menetapkan/mengubah status kerawanan (`hijau`, `kuning`, `merah`), serta mencatat analisis, rekomendasi mitigasi, dan notulen mediasi (`tindak_lanjut`).
-- **Pimpinan (*Executive Viewer* - `pimpinan`):** Kakanwil Kemenag Kaltara, Kakankemenag Kabupaten/Kota, dan Forkopimda / Bakesbangpol Kaltara. Memantau dashboard agregat provinsi (5 Kabupaten/Kota), peta spasial GIS sebaran kerawanan, dan menerima *instant alert* saat ada laporan berstatus `merah` (tanpa membuka identitas pelapor yang dilindungi).
-- **Super Admin / Pengelola Konten (`superadmin`):** Tim Teknis IT (Prakom) dan Pokja Humas/Media yang mengelola akun pengguna, master data wilayah dan kategori isu, kurasi unggahan Media Hub, serta basis pengetahuan FAQ Chatbot (`faq_chatbot`).
-- **Pengunjung Publik (Anonim):** Mengakses beranda status kondusivitas wilayah, galeri Moderation & Tolerance Media Hub, Chatbot "Tanya", serta Pusat Informasi & Layanan Kerukunan.
+- **Pelapor Khusus Lapangan (`penyuluh_ipari`, `kua`, `fkub`):** Penyuluh Agama (IPARI), Kepala KUA, Pengurus FKUB, dan Tokoh Agama/Lembaga Adat. Mendaftar mandiri (mengisi NIP/NIK, nama, instansi, WA, email, wilayah; aktif setelah disetujui `superadmin`), mengirim laporan "Lapor Dini" ber-GPS otomatis, mengunggah bukti (foto JPEG, PDF, audio MP3), menyimpan draft *offline*, dan memantau riwayat tiket mandiri.
+- **Masyarakat Terverifikasi (`masyarakat`):** Warga yang mendaftar mandiri dan diaktifkan oleh `superadmin`. Mengirim aduan indikasi awal (masuk antrean moderasi `verifikator` sebelum tampil di dashboard resmi), serta mengakses Chatbot "Tanya", direktori rumah ibadah, dan hotline FKUB.
+- **Verifikator / Operator (`verifikator`):** Petugas Kankemenag Kab/Kota dan Kanwil yang meninjau laporan lapangan dan antrean moderasi masyarakat, **melihat data identitas pelapor** untuk verifikasi faktual, menolak laporan palsu (`ditolak_hoaks`), menetapkan/mengubah status kerawanan (`hijau`, `kuning`, `merah`), dan mencatat `tindak_lanjut`.
+- **Pimpinan (`pimpinan`):** Kakanwil Kemenag Kaltara, Kakankemenag Kab/Kota, dan Forkopimda/Bakesbangpol. Memantau dashboard agregat 5 Kab/Kota, peta GIS detail, dan menerima *instant alert* saat laporan diverifikasi berstatus `merah` (tanpa membuka identitas pribadi pelapor).
+- **Super Admin (`superadmin`):** Pokja Teknis IT dan Humas/Media yang memverifikasi pendaftaran akun (serta mengoreksi `role` bila perlu), mengelola pengguna, master wilayah/GeoJSON, kategori isu, kurasi Media Hub, `faq_chatbot`, serta data rumah ibadah, agenda, dan kontak FKUB.
+- **Pengunjung Publik (Anonim):** Mengakses beranda kondusivitas 5 Kab/Kota dan peta GIS publik tingkat kecamatan berlabel netral, galeri Media Hub, Bank Naskah Khotbah, Chatbot "Tanya", dan Pusat Informasi Kerukunan.
 
 ## Usage model
 
-- **Skala Geografis & Lokus Piloting:** Mencakup **5 Kabupaten/Kota** (Bulungan, Tarakan, Malinau, Nunukan, Tana Tidung) dan **55 Kecamatan** di Kalimantan Utara, dengan lokus *piloting* awal (Minggu ke-8) di **Kabupaten Malinau**.
-- **Ketahanan Offline Wilayah 3TP (*Blank Spot*):** Menggunakan arsitektur PWA (`manifest.json`, Service Worker, dan `IndexedDB` / `LocalStorage`) agar pelapor di pedalaman/perbatasan tanpa sinyal dapat menyimpan draft laporan secara lokal dan melakukan sinkronisasi otomatis saat kembali mendapat sinyal, disertai kompresi unggahan foto.
-- **Perlindungan Identitas Pelapor (*Whistleblower Protection*):** Identitas pelapor lapangan dienkripsi pada tingkat basis data dan disembunyikan dari tampilan publik maupun tampilan pimpinan umum guna mencegah intimidasi di lapangan.
-- **Moderasi Berjenjang & Penyaringan Hoaks:** Pelaporan "Lapor Dini" diprioritaskan bagi pelapor khusus terverifikasi (`penyuluh_ipari`, `kua`, `fkub`), sementara aduan dari jalur `masyarakat` masuk ke antrean moderasi `verifikator` sebelum dipetakan ke dashboard GIS resmi; laporan palsu ditandai `ditolak_hoaks`.
-- **Standar 3 Tingkat Kerawanan & Respons Cepat:** `hijau` (Kondusif), `kuning` (Potensi Ketegangan / Butuh Mediasi oleh penyuluh/KUA/FKUB), dan `merah` (Ancaman Konflik Mendesak - otomatis meneruskan *instant alert* via Webhook Telegram/WhatsApp ke grup pimpinan dan tim respons cepat).
+- **Cakupan Wilayah & Piloting:** Melayani **5 Kabupaten/Kota** (Bulungan, Tarakan, Malinau, Nunukan, Tana Tidung) dan **55 Kecamatan** di Kalimantan Utara (75.467 km²), dengan lokus *piloting* awal di **Kabupaten Malinau**.
+- **Ketahanan Offline Wilayah 3TP:** PWA (`manifest.json`, Service Worker, `IndexedDB` / `LocalStorage`) menyimpan draft laporan saat tanpa sinyal dan menyinkronkannya dari browser saat kembali online, disertai kompresi foto JPEG di sisi klien.
+- **Visibilitas Identitas Pelapor (*Whistleblower Protection*):** Kolom `nip_nik_encrypted` dan `no_wa_encrypted` dienkripsi (`openssl` `AES-256-GCM`) dengan *blind index* `nip_nik_hash` (`HMAC-SHA256`). Hanya `verifikator`, `superadmin`, dan pemilik tiket yang dapat melihat identitas asli; tampilan `pimpinan` dan publik menyamarkan identitas pelapor.
+- **Moderasi, Peta Publik & Pemicu *Instant Alert*:**
+  - Akun pendaftar mandiri berstatus `menunggu_verifikasi` hingga diaktifkan `superadmin`.
+  - Aduan `masyarakat` wajib melewati moderasi `verifikator`. Status `draft`, `terkirim`, dan `ditolak_hoaks` tidak pernah ditampilkan ke publik.
+  - Peta publik hanya menampilkan warna agregat kecamatan dan jumlah laporan terverifikasi valid (`diverifikasi`, `proses_mediasi`, `selesai`) dengan label netral (*Kondusif & Harmonis*, *Dalam Fasilitasi Dialog & Pembinaan*, *Dalam Koordinasi Intensif Lintas Sektor*) tanpa titik koordinat presisi maupun kronologi.
+  - *Instant alert* otomatis ke grup pimpinan hanya dikirim **setelah** `verifikator` memverifikasi laporan dan menetapkan status `merah`.
+- **Non-Requirements MVP:** Dokumen tata kelola non-perangkat lunak (SK Tim, SOP cetak, buku saku cetak, MoU/PKS, Bimtek tatap muka, laporan evaluasi) berada di luar kode aplikasi. Pengiriman konten mandiri oleh kreator generasi muda dan integrasi LLM berbayar ditunda ke pasca-MVP.
 
 ## Features
 
-Urutan fitur mengikuti `blueprint/build-plan.md` dan tahapan resmi *Milestones 60 Hari (8 Minggu)*. Fitur utama (*headline*) adalah **Modul EWS "Lapor Dini", Verifikasi Berjenjang & Dashboard Pemetaan Spasial GIS (Fitur 4-6)** yang dipadukan dengan **Moderation & Tolerance Media Hub serta Chatbot "Tanya" (Fitur 7-8)**:
+Urutan fitur mengikuti `blueprint/build-plan.md` dan tahapan resmi *Milestones 60 Hari (8 Minggu)*. Fitur utama (*headline*) adalah **Modul EWS "Lapor Dini", Meja Verifikasi & Dashboard Peta Spasial GIS (Fitur 4-6)**:
 
-1. **Skema Basis Data & Master Data Wilayah Kaltara (M1-M2)** - Skrip migrasi DDL untuk 8 tabel inti dan tabel pendukung layanan kerukunan, disertai seeder data referensi 5 Kabupaten/Kota & 55 Kecamatan se-Kaltara beserta poligon GeoJSON dan 5 klasifikasi kategori isu EWS.
-2. **Autentikasi Multi-Role (RBAC) & Perlindungan Identitas Pelapor (M2)** - Login, manajemen sesi, middleware otorisasi 7 peran (`superadmin`, `pimpinan`, `verifikator`, `penyuluh_ipari`, `kua`, `fkub`, `masyarakat`), manajemen akun pengguna, serta enkripsi dan penyamaran identitas pelapor (*whistleblower protection*).
-3. **Fondasi Progressive Web App (PWA) & Beranda Status Kondusivitas Wilayah (M3 & Kelompok Fitur 1)** - Antarmuka responsif mobile dengan `manifest.json` dan Service Worker offline, beranda widget indikator warna kondusivitas 5 Kabupaten/Kota (`Hijau`, `Kuning`, `Merah`), ticker kabar kerukunan & agenda lintas iman, serta *Quick Action* ke "Lapor Dini", "Chatbot Tanya", dan "Hotline FKUB".
-4. **Modul EWS "Lapor Dini" & Sinkronisasi Draft Offline (M4 & Kelompok Fitur 2 - Headline)** - Form pelaporan lapangan dengan nomor tiket otomatis (`EWS-YYYYMMDD-XXXX`), *auto-geotagging* koordinat GPS, unggah multi-bukti (kompresi foto JPEG, PDF, audio MP3), penyimpanan draft lokal (`IndexedDB` / `LocalStorage`) untuk wilayah *blank spot* beserta sinkronisasi otomatis, dan pantauan riwayat laporan mandiri.
-5. **Verifikasi Berjenjang, Tindak Lanjut Mediasi & Penyaringan Hoaks (M4-M5 & Alur Status EWS)** - Meja kerja verifikator/operator untuk memeriksa laporan lapangan dan antrean moderasi aduan masyarakat, menolak laporan hoaks (`ditolak_hoaks`), menetapkan/mengubah status kerawanan (`hijau`, `kuning`, `merah`), serta mencatat analisis dan rekomendasi mediasi (`tindak_lanjut`).
-6. **Dashboard Pemetaan Spasial GIS & Notifikasi Darurat Instan (M5 & Kelompok Fitur 2 - Headline)** - Peta interaktif Kalimantan Utara berbasis Leaflet.js dengan pin koordinat kejadian (`Hijau`, `Kuning`, `Merah`), poligon wilayah rawan (`polygon_geojson` / *heat map*), ringkasan monitoring eksekutif pimpinan, dan *instant alert* otomatis via Webhook Telegram/WhatsApp saat laporan berstatus `merah`.
-7. **Moderation & Tolerance Media Hub & Bank Naskah Khotbah (M6 & Kelompok Fitur 4)** - Katalog publikasi terkurasi untuk video testimoni tokoh agama/adat, minimal 10 infografis moderasi, podcast *"Suara Harmoni Perbatasan"*, dan ruang unduh Bank Naskah Khotbah bertema kerukunan & ekoteologi dengan filter agama, tema, dan format berkas serta panel kurasi Super Admin.
-8. **Chatbot "Tanya" & Pusat Informasi Layanan Kerukunan (M6 & Kelompok Fitur 3 & 5)** - Asisten virtual berbasis *knowledge base* (`faq_chatbot`) untuk edukasi PBM No. 9 & No. 8 Tahun 2006, moderasi beragama, ekoteologi, dan klarifikasi hoaks SARA perbatasan dengan *fallback* ke hotline FKUB, dilengkapi direktori geospasial rumah ibadah resmi, kalender agenda lintas iman, buku saku digital indikator kerawanan, dan kontak sekretariat FKUB se-Kaltara.
+1. **Skema Basis Data MySQL & Master Data Wilayah Kaltara (Tahap 1 - M1)** - Koneksi PDO MySQL, skrip migrasi DDL 12 tabel sistem, serta seeder data referensi 5 Kabupaten/Kota & 55 Kecamatan se-Kaltara beserta poligon GeoJSON dan 5 kategori isu EWS.
+2. **Pendaftaran Mandiri, Verifikasi Akun & Autentikasi Multi-Role RBAC (Tahap 1 - M2)** - Registrasi mandiri (`masyarakat`, `penyuluh_ipari`, `kua`, `fkub`), antrean persetujuan/koreksi peran oleh `superadmin`, login/sesi, middleware RBAC 7 peran, dan layanan enkripsi identitas pelapor (`AES-256-GCM` + HMAC-SHA256).
+3. **Fondasi Progressive Web App (PWA) & Beranda Status Kondusivitas Wilayah (Tahap 2 - M3)** - Mesin *server-rendered* PHP template dengan sistem desain `/impeccable`, `manifest.json` (`Portal BERSATU` / `BERSATU`), Service Worker offline, beranda widget kondusivitas 5 Kabupaten/Kota berlabel netral, ticker agenda lintas iman, dan *Quick Action*.
+4. **Modul EWS "Lapor Dini", Aduan Masyarakat & Sinkronisasi Draft Offline (Tahap 2 - M4 - Headline)** - Form pelaporan lapangan dan aduan indikasi awal masyarakat dengan tiket otomatis (`EWS-YYYYMMDD-XXXX`), *auto-geotagging* GPS, unggah multi-bukti (kompresi foto JPEG di klien, PDF, audio MP3), antrean draft lokal `IndexedDB` saat *blank spot*, dan pantauan riwayat tiket mandiri.
+5. **Meja Kerja Verifikator, Moderasi Aduan & Tindak Lanjut Mediasi (Tahap 2 - M4/M5 - Headline)** - Antarmuka `verifikator` untuk meninjau laporan dan antrean moderasi masyarakat (dengan akses baca identitas pelapor), menolak hoaks (`ditolak_hoaks`), menetapkan/mengubah status kerawanan (`hijau`, `kuning`, `merah`), dan mencatat `tindak_lanjut`.
+6. **Dashboard Pemetaan Spasial GIS (Publik & Eksekutif) + Instant Alert (Tahap 2 - M5 - Headline)** - Peta interaktif Kalimantan Utara berbasis Leaflet.js dalam dua mode (Publik: warna agregat kecamatan & jumlah laporan valid berlabel netral; Eksekutif `pimpinan`/`verifikator`: pin koordinat presisi & statistik provinsi), disertai pengiriman *instant alert* pascaverifikasi status `merah` via Webhook Telegram (Cloudflare Worker Relay) dan WhatsApp API.
+7. **Moderation & Tolerance Media Hub & Bank Naskah Khotbah (Tahap 2 - M5)** - Galeri publikasi terkurasi untuk video tokoh agama/adat, animasi, minimal 10 infografis moderasi, podcast *"Suara Harmoni Perbatasan"*, dan ruang unduh Bank Naskah Khotbah bertema kerukunan & ekoteologi dengan filter agama, tema (`kategori_media`), dan format berkas.
+8. **Chatbot "Tanya" (FAQ PBM 2006) & Pusat Informasi Layanan Kerukunan (Tahap 3 - M6)** - Asisten virtual berbasis pencocokan `faq_chatbot` (PBM No. 9 & No. 8 Tahun 2006, moderasi, ekoteologi, klarifikasi hoaks perbatasan) dengan *fallback* ke WhatsApp hotline FKUB, dilengkapi direktori geospasial rumah ibadah resmi (`rumah_ibadah`), kalender agenda lintas iman (`agenda_kerukunan`), dan daftar kontak sekretariat FKUB se-Kaltara (`kontak_fkub`).
+9. **Panel Super Admin, Master Data & Kesiapan Rilis InfinityFree (Tahap 3/4 - M6-M8)** - Antarmuka administrasi `superadmin` untuk verifikasi akun, CRUD master wilayah/GeoJSON, kategori isu, kurasi Media Hub, FAQ Chatbot, serta data rumah ibadah/agenda/kontak FKUB, ditutup dengan konfigurasi produksi untuk deployment PHP 8.4 & MySQL di InfinityFree.
 
 ## Data model
 
-> Bentuk 8 tabel inti di bawah ini dikunci (*locked*) karena Fitur 1 hingga Fitur 8 bergantung langsung pada nama kolom dan nilai ENUM berikut.
+> Bentuk 12 tabel MySQL (`InnoDB`, `utf8mb4`) di bawah ini dikunci (*locked*) karena Fitur 1 hingga Fitur 9 bergantung langsung pada nama kolom dan nilai ENUM berikut.
 
 ### 1. `wilayah`
-- `id` (`INT`, PK, AUTO_INCREMENT) - identitas wilayah
-- `kode_bps` (`VARCHAR(10)`) - kode wilayah BPS kabupaten/kecamatan
-- `nama_kabupaten` (`VARCHAR(100)`) - satu dari 5 Kabupaten/Kota Kaltara (Bulungan, Tarakan, Malinau, Nunukan, Tana Tidung)
-- `nama_kecamatan` (`VARCHAR(100)`) - nama kecamatan (cakupan 55 kecamatan)
+- `id` (`INT`, PK, AUTO_INCREMENT)
+- `kode_wilayah` (`VARCHAR(10)`, UNIQUE) - kode Kemendagri kecamatan, mis. `65.01.01`
+- `nama_kabupaten` (`VARCHAR(100)`) - Bulungan, Tarakan, Malinau, Nunukan, Tana Tidung
+- `nama_kecamatan` (`VARCHAR(100)`) - nama kecamatan (55 kecamatan)
 - `latitude_pusat` (`DECIMAL(10,8)`) - titik tengah lintang wilayah
 - `longitude_pusat` (`DECIMAL(11,8)`) - titik tengah bujur wilayah
-- `polygon_geojson` (`TEXT` / `JSON`) - batas poligon GeoJSON untuk *heat map* Leaflet.js
-- **Relasi:** `1:N` ke `users` (`wilayah_id`) dan `1:N` ke `laporan_ews` (`wilayah_id`)
+- `polygon_geojson` (`LONGTEXT`) - batas poligon GeoJSON untuk *heat map* Leaflet.js
+- **Relasi:** `1:N` ke `users`, `laporan_ews`, `rumah_ibadah`, `agenda_kerukunan`, dan `kontak_fkub`
 
 ### 2. `users`
-- `id` (`BIGINT`, PK, AUTO_INCREMENT) - identitas pengguna
-- `nip_nik` (`VARCHAR(30)`, UNIQUE) - NIP ASN/Penyuluh atau NIK warga/tokoh
-- `nama_lengkap` (`VARCHAR(150)`) - nama pengguna (dienkripsi/disamarkan saat bertindak sebagai pelapor EWS sesuai *whistleblower protection*)
-- `no_wa` (`VARCHAR(20)`) - nomor WhatsApp kontak/notifikasi
+- `id` (`BIGINT`, PK, AUTO_INCREMENT)
+- `nip_nik_encrypted` (`TEXT`) - NIP/NIK terenkripsi (`AES-256-GCM`)
+- `nip_nik_hash` (`CHAR(64)`, UNIQUE) - *blind index* `HMAC-SHA256` untuk cek keunikan & pencarian
+- `nama_lengkap` (`VARCHAR(150)`) - nama lengkap pengguna
+- `instansi` (`VARCHAR(150)`, NULLABLE) - nama KUA / FKUB / IPARI / Lembaga Adat
+- `no_wa_encrypted` (`TEXT`) - nomor WhatsApp terenkripsi (`AES-256-GCM`)
 - `email` (`VARCHAR(100)`, UNIQUE) - alamat email login
 - `password_hash` (`VARCHAR(255)`) - hash kata sandi
-- `role` (`ENUM('superadmin', 'pimpinan', 'verifikator', 'penyuluh_ipari', 'kua', 'fkub', 'masyarakat')`) - peran RBAC
-- `wilayah_id` (`INT`, FK -> `wilayah.id`) - wilayah penugasan/domisili pengguna
-- `status_aktif` (`BOOLEAN`, DEFAULT `TRUE`) - status keaktifan akun
+- `role` (`ENUM('superadmin', 'pimpinan', 'verifikator', 'penyuluh_ipari', 'kua', 'fkub', 'masyarakat')`)
+- `wilayah_id` (`INT`, FK -> `wilayah.id`)
+- `status_akun` (`ENUM('menunggu_verifikasi', 'aktif', 'ditolak', 'nonaktif')`, DEFAULT `'menunggu_verifikasi'`)
+- `status_aktif` (`BOOLEAN`, DEFAULT `FALSE`) - bernilai `TRUE` saat `status_akun = 'aktif'`
+- `created_at` (`TIMESTAMP`), `updated_at` (`TIMESTAMP`)
 - **Relasi:** `N:1` ke `wilayah`; `1:N` ke `laporan_ews` (`pelapor_id`); `1:N` ke `tindak_lanjut` (`petugas_id`)
 
 ### 3. `kategori_isu`
-- `id` (`INT`, PK, AUTO_INCREMENT) - identitas kategori isu
-- `nama_kategori` (`VARCHAR(100)`) - 5 kategori baku: Pendirian Rumah Ibadah, Gesekan Antarumat/Ormas SARA, Penyiaran Agama/Penistaan, Aliran Keagamaan Baru, Hoaks Transnasional Perbatasan
-- `deskripsi` (`TEXT`) - penjelasan indikator kategori isu
+- `id` (`INT`, PK, AUTO_INCREMENT)
+- `nama_kategori` (`VARCHAR(100)`) - 5 kategori: Pendirian Rumah Ibadah, Gesekan Antarumat/Ormas SARA, Penyiaran Agama/Penistaan, Aliran Keagamaan Baru, Hoaks Transnasional Perbatasan
+- `deskripsi` (`TEXT`)
 - **Relasi:** `1:N` ke `laporan_ews` (`kategori_id`)
 
 ### 4. `laporan_ews`
-- `id` (`BIGINT`, PK, AUTO_INCREMENT) - identitas laporan EWS
-- `nomor_tiket` (`VARCHAR(50)`, UNIQUE) - format baku `EWS-YYYYMMDD-XXXX`
-- `pelapor_id` (`BIGINT`, FK -> `users.id`) - referensi pelapor (identitas dilindungi pada layar publik dan pimpinan umum)
-- `wilayah_id` (`INT`, FK -> `wilayah.id`) - lokasi kabupaten/kecamatan kejadian
-- `alamat_detail` (`TEXT`) - deskripsi lokasi spesifik kejadian
-- `latitude` (`DECIMAL(10,8)`) - koordinat lintang GPS kejadian
-- `longitude` (`DECIMAL(11,8)`) - koordinat bujur GPS kejadian
-- `kategori_id` (`INT`, FK -> `kategori_isu.id`) - klasifikasi isu
-- `judul_laporan` (`VARCHAR(255)`) - ringkasan judul insiden/indikasi
-- `kronologi` (`TEXT`) - uraian detail kronologi kejadian
-- `status_kerawanan` (`ENUM('hijau', 'kuning', 'merah')`) - tingkat risiko kerawanan
-- `status_laporan` (`ENUM('draft', 'terkirim', 'diverifikasi', 'proses_mediasi', 'selesai', 'ditolak_hoaks')`) - tahapan siklus hidup laporan
-- `created_at` (`TIMESTAMP`) - waktu pembuatan laporan
-- `updated_at` (`TIMESTAMP`) - waktu pembaruan terakhir
-- **Atribut tambahan spesifikasi form Bagian 3.B:** `tanggal_kejadian` (`DATE`/`DATETIME`) dan `estimasi_pihak_terlibat` (`INT` / `VARCHAR`)
+- `id` (`BIGINT`, PK, AUTO_INCREMENT)
+- `nomor_tiket` (`VARCHAR(50)`, UNIQUE) - format `EWS-YYYYMMDD-XXXX`
+- `pelapor_id` (`BIGINT`, FK -> `users.id`)
+- `wilayah_id` (`INT`, FK -> `wilayah.id`)
+- `alamat_detail` (`TEXT`)
+- `latitude` (`DECIMAL(10,8)`), `longitude` (`DECIMAL(11,8)`)
+- `kategori_id` (`INT`, FK -> `kategori_isu.id`)
+- `judul_laporan` (`VARCHAR(255)`)
+- `tanggal_kejadian` (`DATE`)
+- `estimasi_pihak_terlibat` (`VARCHAR(100)`, NULLABLE)
+- `kronologi` (`TEXT`)
+- `status_kerawanan` (`ENUM('hijau', 'kuning', 'merah')`, DEFAULT `'hijau'`)
+- `status_laporan` (`ENUM('draft', 'terkirim', 'diverifikasi', 'proses_mediasi', 'selesai', 'ditolak_hoaks')`)
+- `alert_terkirim_at` (`DATETIME`, NULLABLE) - waktu pengiriman *instant alert* status `merah`
+- `created_at` (`TIMESTAMP`), `updated_at` (`TIMESTAMP`)
 - **Relasi:** `N:1` ke `users`, `wilayah`, dan `kategori_isu`; `1:N` ke `bukti_laporan` dan `tindak_lanjut`
 
 ### 5. `bukti_laporan`
-- `id` (`BIGINT`, PK, AUTO_INCREMENT) - identitas berkas bukti
-- `laporan_id` (`BIGINT`, FK -> `laporan_ews.id`) - laporan terkait
-- `file_path` (`VARCHAR(255)`) - path penyimpanan berkas unggahan
-- `tipe_file` (`VARCHAR(50)`) - tipe MIME (`image/jpeg`, `application/pdf`, `audio/mp3`)
-- `caption` (`VARCHAR(255)`) - keterangan berkas bukti
+- `id` (`BIGINT`, PK, AUTO_INCREMENT)
+- `laporan_id` (`BIGINT`, FK -> `laporan_ews.id`)
+- `file_path` (`VARCHAR(255)`)
+- `tipe_file` (`VARCHAR(50)`) - `image/jpeg`, `application/pdf`, `audio/mp3`
+- `caption` (`VARCHAR(255)`, NULLABLE)
+- `created_at` (`TIMESTAMP`)
 
 ### 6. `tindak_lanjut`
-- `id` (`BIGINT`, PK, AUTO_INCREMENT) - identitas log penanganan/verifikasi
-- `laporan_id` (`BIGINT`, FK -> `laporan_ews.id`) - laporan yang ditangani
+- `id` (`BIGINT`, PK, AUTO_INCREMENT)
+- `laporan_id` (`BIGINT`, FK -> `laporan_ews.id`)
 - `petugas_id` (`BIGINT`, FK -> `users.id`) - verifikator/petugas eksekutor
-- `catatan_analisis` (`TEXT`) - hasil verifikasi faktual lapangan / analisis
-- `rekomendasi_mitigasi` (`TEXT`) - rekomendasi tindakan atau notulen mediasi
-- `perubahan_status_kerawanan` (`ENUM('hijau', 'kuning', 'merah')`) - penetapan/perubahan status risiko
-- `tanggal_penanganan` (`DATETIME`) - waktu pencatatan tindak lanjut
+- `catatan_analisis` (`TEXT`)
+- `rekomendasi_mitigasi` (`TEXT`)
+- `perubahan_status_kerawanan` (`ENUM('hijau', 'kuning', 'merah')`)
+- `tanggal_penanganan` (`DATETIME`)
 
-### 7. `media_hub`
-- `id` (`INT`, PK, AUTO_INCREMENT) - identitas konten moderasi
-- `judul` (`VARCHAR(255)`) - judul video, infografis, podcast, atau naskah khotbah
-- `slug` (`VARCHAR(255)`, UNIQUE) - pengenal URL ramah baca
-- `tipe_konten` (`ENUM('video', 'infografis', 'podcast', 'naskah_khotbah')`) - jenis format konten
-- `url_file` (`VARCHAR(255)`) - tautan/berkas media atau dokumen unduhan
-- `thumbnail_url` (`VARCHAR(255)`) - gambar pratinjau konten
-- `deskripsi` (`TEXT`) - ringkasan isi/materi moderasi atau ekoteologi
-- `tokoh_narasumber` (`VARCHAR(150)`) - nama tokoh agama/adat atau penyuluh penulis
-- `status_tampil` (`BOOLEAN`, DEFAULT `TRUE`) - status kurasi publikasi
-- `published_at` (`TIMESTAMP`) - waktu tayang publikasi
-- **Relasi pendukung Bagian 3.D & ERD:** atribut/tabel `kategori_media` untuk penyaringan berdasarkan agama dan tema bahasan (moderasi, ekoteologi, kerukunan perbatasan)
+### 7. `kategori_media`
+- `id` (`INT`, PK, AUTO_INCREMENT)
+- `nama_kategori` (`VARCHAR(100)`) - tema bahasan (Moderasi Beragama, Ekoteologi, Regulasi PBM 2006, Harmoni Perbatasan)
+- `slug` (`VARCHAR(100)`, UNIQUE)
+- **Relasi:** `1:N` ke `media_hub` (`kategori_id`)
 
-### 8. `faq_chatbot`
-- `id` (`INT`, PK, AUTO_INCREMENT) - identitas entri pengetahuan Chatbot "Tanya"
-- `pertanyaan_kunci` (`VARCHAR(255)`) - kata kunci/pertanyaan pengguna
-- `jawaban` (`TEXT`) - materi jawaban edukasi atau klarifikasi hoaks
-- `kategori` (`VARCHAR(100)`) - kelompok bahasan (`pbm_2006`, `moderasi`, `ekoteologi`, `perbatasan`)
+### 8. `media_hub`
+- `id` (`INT`, PK, AUTO_INCREMENT)
+- `kategori_id` (`INT`, FK -> `kategori_media.id`, NULLABLE)
+- `agama` (`ENUM('semua_agama', 'islam', 'kristen', 'katolik', 'hindu', 'buddha', 'khonghucu')`, DEFAULT `'semua_agama'`)
+- `judul` (`VARCHAR(255)`)
+- `slug` (`VARCHAR(255)`, UNIQUE)
+- `tipe_konten` (`ENUM('video', 'animasi', 'infografis', 'podcast', 'naskah_khotbah')`)
+- `url_file` (`VARCHAR(255)`), `thumbnail_url` (`VARCHAR(255)`, NULLABLE)
+- `deskripsi` (`TEXT`)
+- `tokoh_narasumber` (`VARCHAR(150)`)
+- `status_tampil` (`BOOLEAN`, DEFAULT `TRUE`)
+- `published_at` (`TIMESTAMP`)
 
-### 9. Entitas Layanan Kerukunan (Bagian 3.E)
-- Data direktori geospasial rumah ibadah resmi terverifikasi per kabupaten/kota (`wilayah_id`, nama rumah ibadah, agama, alamat, `latitude`, `longitude`), kalender agenda bersama/dialog lintas iman, dan kontak sekretariat hotline FKUB se-Kaltara.
+### 9. `faq_chatbot`
+- `id` (`INT`, PK, AUTO_INCREMENT)
+- `pertanyaan_kunci` (`VARCHAR(255)`)
+- `kata_kunci` (`VARCHAR(255)`) - kata kunci pencocokan pertanyaan pengguna
+- `jawaban` (`TEXT`)
+- `kategori` (`ENUM('pbm_2006', 'moderasi', 'ekoteologi', 'perbatasan')`)
+
+### 10. `rumah_ibadah`
+- `id` (`INT`, PK, AUTO_INCREMENT)
+- `nama_rumah_ibadah` (`VARCHAR(150)`)
+- `agama` (`ENUM('islam', 'kristen', 'katolik', 'hindu', 'buddha', 'khonghucu')`)
+- `wilayah_id` (`INT`, FK -> `wilayah.id`)
+- `alamat` (`TEXT`)
+- `latitude` (`DECIMAL(10,8)`, NULLABLE), `longitude` (`DECIMAL(11,8)`, NULLABLE)
+- `status_verifikasi` (`BOOLEAN`, DEFAULT `TRUE`)
+
+### 11. `agenda_kerukunan`
+- `id` (`INT`, PK, AUTO_INCREMENT)
+- `judul_agenda` (`VARCHAR(200)`), `deskripsi` (`TEXT`)
+- `wilayah_id` (`INT`, FK -> `wilayah.id`, NULLABLE)
+- `lokasi_tempat` (`VARCHAR(200)`)
+- `tanggal_mulai` (`DATETIME`), `tanggal_selesai` (`DATETIME`, NULLABLE)
+- `status_tampil` (`BOOLEAN`, DEFAULT `TRUE`)
+
+### 12. `kontak_fkub`
+- `id` (`INT`, PK, AUTO_INCREMENT)
+- `nama_sekretariat` (`VARCHAR(150)`)
+- `wilayah_id` (`INT`, FK -> `wilayah.id`, NULLABLE)
+- `alamat` (`TEXT`)
+- `no_wa` (`VARCHAR(20)`), `email` (`VARCHAR(100)`, NULLABLE)
+- `status_aktif` (`BOOLEAN`, DEFAULT `TRUE`)
 
 ## Tech stack
 
-- **PHP (`^7.4 || ^8.0`) & Slim Framework 4 (`slim/slim`, `slim/psr7`):** Backend HTTP router, PSR-7 message handling, dan PSR-15 middleware stack.
-- **PHP-DI 6 & Monolog 2:** Dependency injection container (`app/dependencies.php`, `app/repositories.php`) dan pencatatan log aplikasi (`logs/app.log`).
-- **MySQL / PostgreSQL:** Basis data relasional penyimpan 8 tabel inti, data spasial koordinat, dan poligon GeoJSON wilayah.
-- **Progressive Web App (PWA) & Penyimpanan Lokal Klien:** `manifest.json`, Service Worker untuk mode *offline*, serta `IndexedDB` / `LocalStorage` untuk antrean draft laporan "Lapor Dini" dan kompresi gambar di sisi klien.
-- **Leaflet.js:** Peta spasial GIS interaktif untuk menampilkan poligon GeoJSON 5 Kabupaten/Kota dan pin laporan (`Hijau`, `Kuning`, `Merah`).
-- **Webhook Telegram / WhatsApp Bot:** Pengiriman otomatis notifikasi darurat (*instant alert*) saat laporan berstatus `merah`.
-- **PHPUnit 9, PHPCS (PSR-12) & PHPStan (Level 4):** Pengujian unit (`composer test`), pemeriksaan standar kode (`vendor/bin/phpcs`), dan analisis statis (`vendor/bin/phpstan`).
+- **PHP 8.4 (`^7.4 || ^8.0`) & Slim Framework 4 (`slim/slim`, `slim/psr7`):** Backend HTTP router, PSR-7 message handling, dan PSR-15 middleware stack.
+- **PHP-DI 6 & Monolog 2:** Dependency injection container (`app/dependencies.php`, `app/repositories.php`) dan logging (`logs/app.log`).
+- **MySQL (`ext-pdo_mysql`):** Basis data relasional penyimpan 12 tabel sistem, koordinat spasial `DECIMAL`, dan poligon GeoJSON `LONGTEXT`. Tes integrasi MySQL dilewati bila server tidak tersedia.
+- **Server-Rendered PHP Templates & `/impeccable` Design System:** Render halaman HTML langsung dari PHP tanpa *build bundler* Node.js, dipoles dengan CSS berbasis token melalui skill `/impeccable` (`Persuade`, `Operate`, `Read`, `Experience`).
+- **Progressive Web App (PWA) & Penyimpanan Lokal Klien:** `manifest.json`, Service Worker untuk mode *offline*, `IndexedDB` / `LocalStorage` untuk antrean draft laporan "Lapor Dini", dan kompresi JPEG via HTML5 Canvas.
+- **Leaflet.js:** Peta spasial GIS interaktif untuk menampilkan poligon GeoJSON 5 Kabupaten/Kota & 55 Kecamatan serta pin laporan.
+- **OpenSSL (`AES-256-GCM` & `HMAC-SHA256`):** Enkripsi dan *blind indexing* identitas sensitif pelapor.
+- **Webhook Telegram (Cloudflare Worker Relay) & WhatsApp API:** Pengiriman otomatis notifikasi darurat (*instant alert*) via `cURL` saat laporan diverifikasi berstatus `merah`.
+- **PHPUnit 9.5, PHPCS (PSR-12) & PHPStan (Level 4):** Pengujian unit (`composer test`), pemeriksaan standar kode (`vendor/bin/phpcs`), dan analisis statis (`vendor/bin/phpstan`).
 
 ## Monetization
 
-**Zero cost bagi pengguna (Akses Gratis untuk Semua).** Sesuai strategi *Marketing 4P + 1C*, Portal BERSATU merupakan layanan publik nirlabal pemerintah pada Kanwil Kementerian Agama Provinsi Kalimantan Utara yang didanai melalui sumber pembiayaan proyek/instansi yang relevan.
+**Zero cost bagi pengguna (Akses Gratis untuk Semua).** Sesuai strategi *Marketing 4P + 1C*, Portal BERSATU merupakan layanan publik nirlabal pemerintah pada Kanwil Kementerian Agama Provinsi Kalimantan Utara.
 
 ## UI/UX
 
-Antarmuka responsif *mobile-first* yang ringan untuk jaringan 3TP, dapat di-*install* di layar utama ponsel (PWA), dan menggunakan sistem kode warna risiko baku di seluruh komponen (`Hijau` = Kondusif, `Kuning` = Potensi Ketegangan/Mediasi, `Merah` = Ancaman Konflik Mendesak):
+Antarmuka responsif *mobile-first* yang dirancang dengan `/impeccable` dan 2 lapis label warna (`hijau`: Internal *Kondusif* / Publik *Kondusif & Harmonis*; `kuning`: Internal *Potensi Ketegangan / Butuh Mediasi* / Publik *Dalam Fasilitasi Dialog & Pembinaan*; `merah`: Internal *Ancaman Konflik Mendesak* / Publik *Dalam Koordinasi Intensif Lintas Sektor*):
 
-- `/` - Beranda utama dengan widget status kondusivitas 5 Kabupaten/Kota (Bulungan, Tarakan, Malinau, Nunukan, Tana Tidung), ticker berita kerukunan & agenda lintas iman, serta *Quick Action* ("Lapor Dini", "Chatbot Tanya", "Hotline FKUB").
-- `/auth/login` - Halaman autentikasi pengguna multi-role (`nip_nik` / `email`).
-- `/ews/lapor` - Formulir "Lapor Dini" dengan *auto-geotagging* GPS, pilihan 5 kategori isu, unggah multi-bukti (foto/PDF/audio), penyimpanan draft *offline*, dan pantauan riwayat tiket pelapor.
-- `/ews/verifikasi` - Meja kerja verifikator/operator untuk verifikasi laporan, moderasi aduan masyarakat, penyaringan hoaks (`ditolak_hoaks`), penetapan/perubahan status kerawanan, dan input tindak lanjut mediasi.
-- `/ews/peta-gis` - Dashboard eksekutif pimpinan dan peta GIS Leaflet.js se-Kaltara dengan pin kejadian serta *heat map* poligon GeoJSON.
-- `/media-hub` - Galeri Moderation & Tolerance Media Hub (video tokoh agama/adat, infografis, podcast *"Suara Harmoni Perbatasan"*) dan ruang unduh Bank Naskah Khotbah dengan filter agama, tema, dan format berkas.
-- `/tanya` - Antarmuka Chatbot "Tanya" untuk edukasi PBM No. 9 & 8 Tahun 2006, moderasi, ekoteologi, dan klarifikasi hoaks SARA dengan tombol *fallback* langsung ke hotline FKUB.
-- `/informasi-kerukunan` - Pusat informasi berisi direktori geospasial rumah ibadah resmi terverifikasi, kalender agenda dialog lintas iman, buku saku indikator kerawanan, dan daftar kontak hotline FKUB se-Kaltara.
-- `/admin` - Panel Super Admin untuk manajemen pengguna, master wilayah/kategori, kurasi konten Media Hub, dan manajemen FAQ Chatbot.
+- `/` - Beranda utama (`Persuade`): widget kondusivitas 5 Kabupaten/Kota berlabel netral, ticker agenda lintas iman, *Quick Action*, dan sorotan Media Hub.
+- `/auth/login` & `/auth/register` - Masuk dan pendaftaran mandiri (`masyarakat`, `penyuluh_ipari`, `kua`, `fkub`) dengan notifikasi status verifikasi akun.
+- `/ews/lapor` - Formulir "Lapor Dini" & aduan (`Operate`): *auto-geotagging* GPS, 5 kategori isu, unggah bukti (JPEG terkompresi, PDF, MP3), draft *offline* `IndexedDB`, dan pantauan tiket mandiri.
+- `/ews/verifikasi` - Meja kerja `verifikator` (`Operate`): verifikasi laporan, moderasi aduan masyarakat, lihat identitas pelapor, penolakan hoaks (`ditolak_hoaks`), penetapan status kerawanan, dan input `tindak_lanjut`.
+- `/peta-kerukunan` & `/ews/peta-gis` - Peta GIS Leaflet.js: peta publik tingkat kecamatan berlabel netral di `/peta-kerukunan`, serta dashboard GIS eksekutif detail pin koordinat bagi `pimpinan`/`verifikator`/`superadmin` di `/ews/peta-gis`.
+- `/media-hub` - Galeri Moderation & Tolerance Media Hub (`Experience` & `Read`): video tokoh agama/adat, animasi, infografis, podcast *"Suara Harmoni Perbatasan"*, dan ruang unduh Bank Naskah Khotbah.
+- `/tanya` - Antarmuka Chatbot "Tanya" (`Read`): tanya-jawab berbasis pencocokan `faq_chatbot` (PBM No. 9 & 8 Tahun 2006, moderasi, ekoteologi, klarifikasi hoaks SARA) dengan *fallback* ke WhatsApp hotline FKUB.
+- `/informasi-kerukunan` - Pusat informasi (`Read`): direktori geospasial rumah ibadah resmi, kalender agenda lintas iman, dan kontak sekretariat hotline FKUB se-Kaltara.
+- `/admin` - Panel `superadmin` (`Operate`): verifikasi pendaftaran akun, manajemen pengguna, master wilayah/GeoJSON, kategori isu, kurasi Media Hub, FAQ Chatbot, dan data Pusat Informasi Kerukunan.
 
 ## Deployment
 
-- **Target tahapan rilis (Timeline 60 Hari / 8 Minggu):** Piloting awal di **Kabupaten Malinau** dan peluncuran resmi pada domain Kanwil Kemenag Prov. Kalimantan Utara pada Minggu ke-8 (diikuti replikasi operasional penuh di 5 Kabupaten/Kota dalam jangka menengah 6 bulan).
-- **Konfigurasi Server & Runtime:** PHP 7.4/8.x dengan document root diarahkan ke `public/`, direktori `logs/` dan `var/cache/` yang *writable*, serta dukungan kontainer pengembangan melalui `docker-compose.yml` (`composer start` / `php -S localhost:8080 -t public`).
-- `> TODO`: Tetapkan pilihan mesin database produksi final (MySQL vs PostgreSQL), variabel environment koneksi DB, kunci enkripsi identitas pelapor, dan kredensial Webhook Bot Telegram/WhatsApp pada Fitur 1, Fitur 2, dan Fitur 6.
-
-## Open questions
-
-1. **Atribut tambahan `laporan_ews` (Bagian 3.B vs Bagian 4):** Spesifikasi form "Lapor Dini" pada Bagian 3.B mencantumkan isian *tanggal kejadian* dan *estimasi jumlah pihak terlibat*, yang belum tertulis eksplisit pada daftar kolom tabel `laporan_ews` di Bagian 4. Keduanya dicatat untuk disertakan sebagai kolom `tanggal_kejadian` dan `estimasi_pihak_terlibat` saat pembuatan migrasi DDL pada Fitur 1.
-2. **Kategori agama & tema pada `media_hub` (Bagian 3.D & ERD vs Bagian 4):** ERD Bagian 4 menampilkan entitas `KATEGORI_MEDIA` dan Bagian 3.D mensyaratkan filter berdasarkan *agama*, *tema bahasan*, dan *jenis format berkas*, sedangkan daftar kolom `media_hub` baru memuat `tipe_konten`. Struktur tabel/kolom `kategori_media` (`agama`, `tema`) akan diselesaikan pada skema DDL Fitur 1 dan Fitur 7.
-3. **Skema tabel Pusat Informasi & Layanan Kerukunan (Bagian 3.E):** Direktori geospasial tempat ibadah resmi terverifikasi, kalender agenda lintas iman, dan kontak hotline FKUB pada Bagian 3.E belum memiliki rincian kolom khusus di Bagian 4; tabel pendukungnya akan didefinisikan bersama skema DDL pada Fitur 1 dan Fitur 8.
+- **Target Hosting:** **InfinityFree** (`htdocs/`) dengan **PHP 8.4.27** dan **MySQL** (`curl`, `pdo_mysql`, `mbstring`, `openssl`, `gd`, `fileinfo` aktif; `upload_max_filesize: 20M`; `post_max_size: 30M`; SSL Let's Encrypt/ZeroSSL).
+- **Struktur Routing & Batas File:** Root `.htaccess` mengarahkan request ke `public/index.php`; direktori `logs/` dan `var/cache/` *writable*; setiap file `.php`/`.js`/`.css` < 1 MB dan setiap unggahan < 10 MB.
+- **Variabel Environment:** `DB_HOST`, `DB_PORT`, `DB_NAME`, `DB_USER`, `DB_PASS`, `APP_ENV`, `APP_DEBUG`, `APP_ENCRYPTION_KEY`, `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID`, `TELEGRAM_API_BASE_URL` (Cloudflare Worker Relay URL untuk melewati blokir DNS `api.telegram.org` di InfinityFree), `WHATSAPP_API_URL`, `WHATSAPP_API_TOKEN`.

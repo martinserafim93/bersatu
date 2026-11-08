@@ -44,19 +44,26 @@
 
 ## Styling and Frontend
 
-- > TODO: Frontend rendering approach (server-rendered templates vs SPA/PWA assets, CSS framework, and Leaflet.js GIS integration) is not yet present in the scaffold. Establish and document once the first UI feature is planned.
+- Render HTML pages using clean, server-rendered PHP templates (`views/` or `templates/`) without requiring a Node.js bundler
+- Design and refine all UI surfaces using the `/impeccable` skill (`Persuade` for landing/home, `Operate` for EWS forms, verifier desk, GIS dashboard, and admin, `Read` for Chatbot Tanya, sermon bank, and harmony info, and `Experience` for Media Hub)
+- Keep all CSS, JS, and PHP source files under 1 MB per file to respect InfinityFree hosting limits
+- Use progressive enhancement and standard browser `fetch()` (same-origin with session/cookie support) for dynamic endpoints, PWA Service Worker caching, client-side JPEG compression, `IndexedDB` offline draft storage, and Leaflet.js GIS rendering
 
 ## Database and Persistence
 
-- Depend on domain repository interfaces (`src/Domain/[Feature]/*Repository.php`) inside Actions and services, and bind concrete implementations in `app/repositories.php`
-- > TODO: The scaffold currently ships with `InMemoryUserRepository`. Document the relational database layer (PDO / query builder / migration tool for MySQL or PostgreSQL) when database persistence is introduced.
+- Target production database is **MySQL** (`InnoDB`, `utf8mb4`) on InfinityFree, accessed via native PHP `PDO` (`ext-pdo_mysql`) registered in `app/dependencies.php`
+- Depend on domain repository interfaces (`src/Domain/[Feature]/*Repository.php`) inside Actions and services, and bind concrete PDO implementations in `app/repositories.php`
+- Store GeoJSON polygons in `LONGTEXT` columns and spatial coordinates in `DECIMAL(10,8)` / `DECIMAL(11,8)` for maximum compatibility across MySQL/MariaDB environments
+- Run logic tests that need no database without any connection; run MySQL integration tests only when a MySQL server is reachable and skip them otherwise, so `composer test` stays deterministic without an external server
 
 ## Data Access, Validation, and Error Handling
 
+- Ensure strict PHP 8.4 compatibility across all files (`declare(strict_types=1);`, explicit nullable types `?Type $param = null`)
 - Domain lookup failures throw domain exceptions extending `DomainException` (such as `DomainRecordNotFoundException`)
 - JSON/API actions extend `App\Application\Actions\Action` and return structured `ActionPayload` responses via `$this->respondWithData(...)` or `$this->respond(...)`
-- Uncaught HTTP and domain errors are formatted consistently by `HttpErrorHandler` into `ActionPayload` / `ActionError`
-- > TODO: Define request input validation, CSRF protection, file-upload validation, and RBAC session/middleware conventions when implementing authenticated and form-submission features.
+- Encrypt sensitive reporter fields (`nip_nik_encrypted`, `no_wa_encrypted`) with `openssl` (`AES-256-GCM`) and index `nip_nik_hash` with HMAC-SHA256; expose decrypted reporter identity only to `verifikator`, `superadmin`, and the ticket owner
+- Enforce role-based access control (RBAC) and `status_akun = 'aktif'` checks in PSR-15 middleware; validate uploaded files with `fileinfo` MIME checks (`image/jpeg`, `application/pdf`, `audio/mp3`) and keep uploads within InfinityFree limits
+- Route outgoing Telegram instant alerts through a configurable base URL (`TELEGRAM_API_BASE_URL`) so production can use a Cloudflare Worker Relay when direct `api.telegram.org` DNS is blocked
 
 ## Testing
 
