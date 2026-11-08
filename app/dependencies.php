@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use App\Application\Settings\SettingsInterface;
+use App\Infrastructure\Persistence\Database\PdoConnectionFactory;
 use DI\ContainerBuilder;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
@@ -12,6 +13,14 @@ use Psr\Log\LoggerInterface;
 
 return function (ContainerBuilder $containerBuilder) {
     $containerBuilder->addDefinitions([
+        PDO::class => function (ContainerInterface $c): PDO {
+            /** @var SettingsInterface $settings */
+            $settings = $c->get(SettingsInterface::class);
+            /** @var array<string, mixed> $dbSettings */
+            $dbSettings = $settings->get('db');
+
+            return (new PdoConnectionFactory())->create($dbSettings);
+        },
         LoggerInterface::class => function (ContainerInterface $c) {
             $settings = $c->get(SettingsInterface::class);
 
