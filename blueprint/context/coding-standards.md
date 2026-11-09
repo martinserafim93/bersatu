@@ -61,7 +61,7 @@
 - Ensure strict PHP 8.4 compatibility across all files (`declare(strict_types=1);`, explicit nullable types `?Type $param = null`)
 - Domain lookup failures throw domain exceptions extending `DomainException` (such as `DomainRecordNotFoundException`)
 - JSON/API actions extend `App\Application\Actions\Action` and return structured `ActionPayload` responses via `$this->respondWithData(...)` or `$this->respond(...)`
-- Encrypt sensitive reporter fields (`nip_nik_encrypted`, `no_wa_encrypted`) with `openssl` (`AES-256-GCM`) and index `nip_nik_hash` with HMAC-SHA256; expose decrypted reporter identity only to `verifikator`, `superadmin`, and the ticket owner
+- Encrypt sensitive reporter fields (`nip_nik_encrypted`, `no_wa_encrypted`) with `openssl` (`AES-256-GCM`) and index `nip_nik_hash` with HMAC-SHA256; expose decrypted reporter identity only to `verifikator` and the ticket owner (`superadmin` manages accounts, not reports)
 - Enforce role-based access control (RBAC) and `status_akun = 'aktif'` checks in PSR-15 middleware; validate uploaded files with `fileinfo` MIME checks (`image/jpeg`, `application/pdf`, `audio/mp3`) and keep uploads within InfinityFree limits
 - Route outgoing Telegram instant alerts through a configurable base URL (`TELEGRAM_API_BASE_URL`) so production can use a Cloudflare Worker Relay when direct `api.telegram.org` DNS is blocked
 

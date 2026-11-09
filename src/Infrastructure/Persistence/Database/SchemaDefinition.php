@@ -57,7 +57,6 @@ CREATE TABLE IF NOT EXISTS users (
     ) NOT NULL DEFAULT 'masyarakat',
     wilayah_id INT NOT NULL,
     status_akun ENUM('menunggu_verifikasi', 'aktif', 'ditolak', 'nonaktif') NOT NULL DEFAULT 'menunggu_verifikasi',
-    status_aktif BOOLEAN NOT NULL DEFAULT FALSE,
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     CONSTRAINT fk_users_wilayah FOREIGN KEY (wilayah_id) REFERENCES wilayah(id) ON UPDATE CASCADE ON DELETE RESTRICT

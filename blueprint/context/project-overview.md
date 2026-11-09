@@ -1,6 +1,6 @@
 # Portal BERSATU - Project Overview
 
-<!-- blueprint:source-hash 22c3c208d5a86edc193f2b93067510bc3a1fef21ad9187a99555d9675f50ea1d -->
+<!-- blueprint:source-hash 51c6f8803f47d0486c34ed6cf97bcf982fc6fe5785bba6e4bb5bc195161818bb -->
 
 > Portal web responsif berbasis Progressive Web App (PWA, nama merek/ikon: **BERSATU**) untuk *Strategi Penguatan Early Warning System (EWS) Melalui Promosi Kerukunan Umat Beragama Berbasis Digital* pada Kantor Wilayah Kementerian Agama Provinsi Kalimantan Utara (Proyek Perubahan PKN Tk. II Angkatan XXX Tahun 2026 - H. Iramsyah Noor, S.Ag., M.A.P.; Mentor: Prof. Dr. Muhammad Ali Ramdhani, S.TP., M.T.; Coach: Dr. Neneng Maria Kiptyah, M.Pd.; Penguji: Drs. Seno Hartono, DESS; lokus piloting awal Kab. Malinau dengan cakupan penuh 5 Kabupaten/Kota dan 55 Kecamatan se-Kaltara).
 
@@ -14,16 +14,16 @@ Sistem menerapkan **Role-Based Access Control (RBAC)** dengan 5 kelompok penggun
 
 - **Pelapor Khusus Lapangan (`penyuluh_ipari`, `kua`, `fkub`):** Penyuluh Agama (IPARI), Kepala KUA, Pengurus FKUB, dan Tokoh Agama/Lembaga Adat. Mendaftar mandiri (mengisi NIP/NIK, nama, instansi, WA, email, wilayah; aktif setelah disetujui `superadmin`), mengirim laporan "Lapor Dini" ber-GPS otomatis, mengunggah bukti (foto JPEG, PDF, audio MP3), menyimpan draft *offline*, dan memantau riwayat tiket mandiri.
 - **Masyarakat Terverifikasi (`masyarakat`):** Warga yang mendaftar mandiri dan diaktifkan oleh `superadmin`. Mengirim aduan indikasi awal (masuk antrean moderasi `verifikator` sebelum tampil di dashboard resmi), serta mengakses Chatbot "Tanya", direktori rumah ibadah, dan hotline FKUB.
-- **Verifikator / Operator (`verifikator`):** Petugas Kankemenag Kab/Kota dan Kanwil yang meninjau laporan lapangan dan antrean moderasi masyarakat, **melihat data identitas pelapor** untuk verifikasi faktual, menolak laporan palsu (`ditolak_hoaks`), menetapkan/mengubah status kerawanan (`hijau`, `kuning`, `merah`), dan mencatat `tindak_lanjut`.
+- **Verifikator / Operator (`verifikator`):** Petugas Kankemenag Kab/Kota dan Kanwil yang meninjau laporan lapangan dan antrean moderasi masyarakat, **melihat data identitas pelapor** untuk verifikasi faktual, menolak laporan palsu (`ditolak_hoaks`), menetapkan/mengubah status kerawanan (`hijau`, `kuning`, `merah`), dan mencatat `tindak_lanjut`. Hanya melihat data pengaju dan mengelola data laporan; tidak mengelola akun maupun konten.
 - **Pimpinan (`pimpinan`):** Kakanwil Kemenag Kaltara, Kakankemenag Kab/Kota, dan Forkopimda/Bakesbangpol. Memantau dashboard agregat 5 Kab/Kota, peta GIS detail, dan menerima *instant alert* saat laporan diverifikasi berstatus `merah` (tanpa membuka identitas pribadi pelapor).
-- **Super Admin (`superadmin`):** Pokja Teknis IT dan Humas/Media yang memverifikasi pendaftaran akun (serta mengoreksi `role` bila perlu), mengelola pengguna, master wilayah/GeoJSON, kategori isu, kurasi Media Hub, `faq_chatbot`, serta data rumah ibadah, agenda, dan kontak FKUB.
+- **Super Admin (`superadmin`):** Pokja Teknis IT dan Humas/Media yang memverifikasi pendaftaran akun (serta mengoreksi `role` bila perlu), mengelola pengguna, master wilayah/GeoJSON, kategori isu, kurasi Media Hub, `faq_chatbot`, serta data rumah ibadah, agenda, dan kontak FKUB. Tidak mengakses atau mengelola laporan EWS.
 - **Pengunjung Publik (Anonim):** Mengakses beranda kondusivitas 5 Kab/Kota dan peta GIS publik tingkat kecamatan berlabel netral, galeri Media Hub, Bank Naskah Khotbah, Chatbot "Tanya", dan Pusat Informasi Kerukunan.
 
 ## Usage model
 
 - **Cakupan Wilayah & Piloting:** Melayani **5 Kabupaten/Kota** (Bulungan, Tarakan, Malinau, Nunukan, Tana Tidung) dan **55 Kecamatan** di Kalimantan Utara (75.467 km²), dengan lokus *piloting* awal di **Kabupaten Malinau**.
 - **Ketahanan Offline Wilayah 3TP:** PWA (`manifest.json`, Service Worker, `IndexedDB` / `LocalStorage`) menyimpan draft laporan saat tanpa sinyal dan menyinkronkannya dari browser saat kembali online, disertai kompresi foto JPEG di sisi klien.
-- **Visibilitas Identitas Pelapor (*Whistleblower Protection*):** Kolom `nip_nik_encrypted` dan `no_wa_encrypted` dienkripsi (`openssl` `AES-256-GCM`) dengan *blind index* `nip_nik_hash` (`HMAC-SHA256`). Hanya `verifikator`, `superadmin`, dan pemilik tiket yang dapat melihat identitas asli; tampilan `pimpinan` dan publik menyamarkan identitas pelapor.
+- **Visibilitas Identitas Pelapor (*Whistleblower Protection*):** Kolom `nip_nik_encrypted` dan `no_wa_encrypted` dienkripsi (`openssl` `AES-256-GCM`) dengan *blind index* `nip_nik_hash` (`HMAC-SHA256`). Hanya `verifikator` dan pemilik tiket yang dapat melihat identitas asli (`superadmin` hanya mengelola akun, bukan laporan); tampilan `pimpinan` dan publik menyamarkan identitas pelapor.
 - **Moderasi, Peta Publik & Pemicu *Instant Alert*:**
   - Akun pendaftar mandiri berstatus `menunggu_verifikasi` hingga diaktifkan `superadmin`.
   - Aduan `masyarakat` wajib melewati moderasi `verifikator`. Status `draft`, `terkirim`, dan `ditolak_hoaks` tidak pernah ditampilkan ke publik.
@@ -70,8 +70,7 @@ Urutan fitur mengikuti `blueprint/build-plan.md` dan tahapan resmi *Milestones 6
 - `password_hash` (`VARCHAR(255)`) - hash kata sandi
 - `role` (`ENUM('superadmin', 'pimpinan', 'verifikator', 'penyuluh_ipari', 'kua', 'fkub', 'masyarakat')`)
 - `wilayah_id` (`INT`, FK -> `wilayah.id`)
-- `status_akun` (`ENUM('menunggu_verifikasi', 'aktif', 'ditolak', 'nonaktif')`, DEFAULT `'menunggu_verifikasi'`)
-- `status_aktif` (`BOOLEAN`, DEFAULT `FALSE`) - bernilai `TRUE` saat `status_akun = 'aktif'`
+- `status_akun` (`ENUM('menunggu_verifikasi', 'aktif', 'ditolak', 'nonaktif')`, DEFAULT `'menunggu_verifikasi'`) - satu-satunya penanda status akun; login hanya bila `aktif`
 - `created_at` (`TIMESTAMP`), `updated_at` (`TIMESTAMP`)
 - **Relasi:** `N:1` ke `wilayah`; `1:N` ke `laporan_ews` (`pelapor_id`); `1:N` ke `tindak_lanjut` (`petugas_id`)
 
@@ -191,7 +190,7 @@ Antarmuka responsif *mobile-first* yang dirancang dengan `/impeccable` dan 2 lap
 - `/auth/login` & `/auth/register` - Masuk dan pendaftaran mandiri (`masyarakat`, `penyuluh_ipari`, `kua`, `fkub`) dengan notifikasi status verifikasi akun.
 - `/ews/lapor` - Formulir "Lapor Dini" & aduan (`Operate`): *auto-geotagging* GPS, 5 kategori isu, unggah bukti (JPEG terkompresi, PDF, MP3), draft *offline* `IndexedDB`, dan pantauan tiket mandiri.
 - `/ews/verifikasi` - Meja kerja `verifikator` (`Operate`): verifikasi laporan, moderasi aduan masyarakat, lihat identitas pelapor, penolakan hoaks (`ditolak_hoaks`), penetapan status kerawanan, dan input `tindak_lanjut`.
-- `/peta-kerukunan` & `/ews/peta-gis` - Peta GIS Leaflet.js: peta publik tingkat kecamatan berlabel netral di `/peta-kerukunan`, serta dashboard GIS eksekutif detail pin koordinat bagi `pimpinan`/`verifikator`/`superadmin` di `/ews/peta-gis`.
+- `/peta-kerukunan` & `/ews/peta-gis` - Peta GIS Leaflet.js: peta publik tingkat kecamatan berlabel netral di `/peta-kerukunan`, serta dashboard GIS eksekutif detail pin koordinat bagi `pimpinan`/`verifikator` di `/ews/peta-gis`.
 - `/media-hub` - Galeri Moderation & Tolerance Media Hub (`Experience` & `Read`): video tokoh agama/adat, animasi, infografis, podcast *"Suara Harmoni Perbatasan"*, dan ruang unduh Bank Naskah Khotbah.
 - `/tanya` - Antarmuka Chatbot "Tanya" (`Read`): tanya-jawab berbasis pencocokan `faq_chatbot` (PBM No. 9 & 8 Tahun 2006, moderasi, ekoteologi, klarifikasi hoaks SARA) dengan *fallback* ke WhatsApp hotline FKUB.
 - `/informasi-kerukunan` - Pusat informasi (`Read`): direktori geospasial rumah ibadah resmi, kalender agenda lintas iman, dan kontak sekretariat hotline FKUB se-Kaltara.
