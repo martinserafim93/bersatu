@@ -6,42 +6,76 @@ namespace App\Domain\User;
 
 use JsonSerializable;
 
-class User implements JsonSerializable
+final class User implements JsonSerializable
 {
-    private ?int $id;
-
-    private string $username;
-
-    private string $firstName;
-
-    private string $lastName;
-
-    public function __construct(?int $id, string $username, string $firstName, string $lastName)
-    {
-        $this->id = $id;
-        $this->username = strtolower($username);
-        $this->firstName = ucfirst($firstName);
-        $this->lastName = ucfirst($lastName);
+    public function __construct(
+        private int $id,
+        private string $namaLengkap,
+        private ?string $instansi,
+        private string $email,
+        private string $passwordHash,
+        private string $role,
+        private int $wilayahId,
+        private string $statusAkun,
+        private string $nipNikEncrypted,
+        private string $noWaEncrypted,
+        private string $createdAt
+    ) {
     }
 
-    public function getId(): ?int
+    public function getId(): int
     {
         return $this->id;
     }
 
-    public function getUsername(): string
+    public function getNamaLengkap(): string
     {
-        return $this->username;
+        return $this->namaLengkap;
     }
 
-    public function getFirstName(): string
+    public function getInstansi(): ?string
     {
-        return $this->firstName;
+        return $this->instansi;
     }
 
-    public function getLastName(): string
+    public function getEmail(): string
     {
-        return $this->lastName;
+        return $this->email;
+    }
+
+    public function getPasswordHash(): string
+    {
+        return $this->passwordHash;
+    }
+
+    public function getRole(): string
+    {
+        return $this->role;
+    }
+
+    public function getWilayahId(): int
+    {
+        return $this->wilayahId;
+    }
+
+    public function getStatusAkun(): string
+    {
+        return $this->statusAkun;
+    }
+
+    public function getNipNikEncrypted(): string
+    {
+        return $this->nipNikEncrypted;
+    }
+
+    public function getNoWaEncrypted(): string
+    {
+        return $this->noWaEncrypted;
+    }
+
+    public function getCreatedAt(): string
+    {
+        return $this->createdAt;
     }
 
     #[\ReturnTypeWillChange]
@@ -49,9 +83,13 @@ class User implements JsonSerializable
     {
         return [
             'id' => $this->id,
-            'username' => $this->username,
-            'firstName' => $this->firstName,
-            'lastName' => $this->lastName,
+            'nama_lengkap' => $this->namaLengkap,
+            'instansi' => $this->instansi,
+            'email' => $this->email,
+            'role' => $this->role,
+            'wilayah_id' => $this->wilayahId,
+            'status_akun' => $this->statusAkun,
+            'created_at' => $this->createdAt,
         ];
     }
 }

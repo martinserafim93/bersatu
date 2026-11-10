@@ -2,10 +2,22 @@
 
 declare(strict_types=1);
 
+use App\Application\Actions\Admin\AktifkanAkunAction;
+use App\Application\Actions\Admin\CreateAkunAction;
+use App\Application\Actions\Admin\ListAkunAction;
+use App\Application\Actions\Admin\NonaktifkanAkunAction;
+use App\Application\Actions\Admin\SetujuiAkunAction;
+use App\Application\Actions\Admin\TolakAkunAction;
+use App\Application\Actions\Auth\LoginAction;
+use App\Application\Actions\Auth\LogoutAction;
+use App\Application\Actions\Auth\MeAction;
+use App\Application\Actions\Auth\RegisterAction;
 use App\Application\Actions\Master\ListKategoriIsuAction;
 use App\Application\Actions\Master\ListWilayahAction;
-use App\Application\Actions\User\ListUsersAction;
-use App\Application\Actions\User\ViewUserAction;
+use App\Application\Middleware\AuthMiddleware;
+use App\Application\Middleware\RequireJsonMiddleware;
+use App\Application\Middleware\RoleMiddleware;
+use App\Domain\User\Role;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\App;
@@ -22,10 +34,23 @@ return function (App $app) {
         return $response;
     });
 
-    $app->group('/users', function (Group $group) {
-        $group->get('', ListUsersAction::class);
-        $group->get('/{id}', ViewUserAction::class);
-    });
+    $app->group('/api/auth', function (Group $group) {
+        $group->post('/register', RegisterAction::class);
+        $group->post('/login', LoginAction::class);
+        $group->post('/logout', LogoutAction::class)->add(AuthMiddleware::class);
+        $group->get('/me', MeAction::class)->add(AuthMiddleware::class);
+    })->add(RequireJsonMiddleware::class);
+
+    $app->group('/api/admin', function (Group $group) {
+        $group->get('/akun', ListAkunAction::class);
+        $group->post('/akun', CreateAkunAction::class);
+        $group->post('/akun/{id:[0-9]+}/setujui', SetujuiAkunAction::class);
+        $group->post('/akun/{id:[0-9]+}/tolak', TolakAkunAction::class);
+        $group->post('/akun/{id:[0-9]+}/nonaktifkan', NonaktifkanAkunAction::class);
+        $group->post('/akun/{id:[0-9]+}/aktifkan', AktifkanAkunAction::class);
+    })->add(new RoleMiddleware([Role::SUPERADMIN]))
+      ->add(AuthMiddleware::class)
+      ->add(RequireJsonMiddleware::class);
 
     $app->group('/api/master', function (Group $group) {
         $group->get('/wilayah', ListWilayahAction::class);

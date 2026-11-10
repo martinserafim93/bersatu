@@ -21,6 +21,9 @@ return function (ContainerBuilder $containerBuilder) {
                     'path' => isset($_ENV['docker']) ? 'php://stdout' : __DIR__ . '/../logs/app.log',
                     'level' => Logger::DEBUG,
                 ],
+                'security' => [
+                    'app_key' => (string) ($_ENV['APP_ENCRYPTION_KEY'] ?? getenv('APP_ENCRYPTION_KEY') ?: ''),
+                ],
                 'db' => [
                     'driver' => (string) ($_ENV['DB_DRIVER'] ?? getenv('DB_DRIVER') ?: 'mysql'),
                     'host' => (string) ($_ENV['DB_HOST'] ?? getenv('DB_HOST') ?: '127.0.0.1'),

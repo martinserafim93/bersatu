@@ -2,10 +2,13 @@
 
 declare(strict_types=1);
 
+use App\Infrastructure\Config\EnvLoader;
 use App\Infrastructure\Persistence\Database\SchemaMigrator;
 use DI\ContainerBuilder;
 
 require __DIR__ . '/../vendor/autoload.php';
+
+EnvLoader::load(__DIR__ . '/../.env');
 
 $containerBuilder = new ContainerBuilder();
 

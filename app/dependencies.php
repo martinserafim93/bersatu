@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use App\Application\Settings\SettingsInterface;
 use App\Infrastructure\Persistence\Database\PdoConnectionFactory;
+use App\Infrastructure\Security\IdentityCipher;
 use DI\ContainerBuilder;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
@@ -20,6 +21,14 @@ return function (ContainerBuilder $containerBuilder) {
             $dbSettings = $settings->get('db');
 
             return (new PdoConnectionFactory())->create($dbSettings);
+        },
+        IdentityCipher::class => function (ContainerInterface $c): IdentityCipher {
+            /** @var SettingsInterface $settings */
+            $settings = $c->get(SettingsInterface::class);
+            /** @var array<string, mixed> $security */
+            $security = $settings->get('security');
+
+            return new IdentityCipher((string) ($security['app_key'] ?? ''));
         },
         LoggerInterface::class => function (ContainerInterface $c) {
             $settings = $c->get(SettingsInterface::class);
