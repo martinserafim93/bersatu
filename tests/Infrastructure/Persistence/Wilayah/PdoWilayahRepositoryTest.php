@@ -152,7 +152,7 @@ class PdoWilayahRepositoryTest extends TestCase
             false
         );
 
-        $pdo->query('SELECT DISTINCT nama_kabupaten FROM wilayah ORDER BY id ASC')
+        $pdo->query('SELECT nama_kabupaten FROM wilayah GROUP BY nama_kabupaten ORDER BY MIN(id) ASC')
             ->willReturn($stmt->reveal())
             ->shouldBeCalledOnce();
 

@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="192" height="192" viewBox="0 0 192 192" role="img" aria-label="Logo Portal BERSATU">
+  <rect width="192" height="192" rx="36" fill="#0b5d46"/>
+  <rect x="14" y="14" width="164" height="164" rx="26" fill="none" stroke="#c9962b" stroke-width="4"/>
+  <polygon points="96,34 150,96 96,158 42,96" fill="none" stroke="#f6f5ef" stroke-width="5"/>
+  <circle cx="96" cy="96" r="28" fill="#073f2f" stroke="#c9962b" stroke-width="4"/>
+  <path d="M84 79h15c8 0 13 4 13 10 0 4-3 8-7 9 5 1 9 5 9 11 0 7-6 11-15 11H84V79zm9 15h6c3 0 5-2 5-4s-2-4-5-4h-6v8zm0 19h7c4 0 6-2 6-5s-2-5-6-5h-7v10z" fill="#f6f5ef"/>
+</svg>

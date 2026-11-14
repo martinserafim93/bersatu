@@ -1,6 +1,6 @@
 # Portal BERSATU - Project Overview
 
-<!-- blueprint:source-hash 08af02a142a039584a2628eab67392df1530bdff5eda7d6589e2f98866730025 -->
+<!-- blueprint:source-hash 51c6f8803f47d0486c34ed6cf97bcf982fc6fe5785bba6e4bb5bc195161818bb -->
 
 > Portal web responsif berbasis Progressive Web App (PWA, nama merek/ikon: **BERSATU**) untuk *Strategi Penguatan Early Warning System (EWS) Melalui Promosi Kerukunan Umat Beragama Berbasis Digital* pada Kantor Wilayah Kementerian Agama Provinsi Kalimantan Utara (Proyek Perubahan PKN Tk. II Angkatan XXX Tahun 2026 - H. Iramsyah Noor, S.Ag., M.A.P.; Mentor: Prof. Dr. Muhammad Ali Ramdhani, S.TP., M.T.; Coach: Dr. Neneng Maria Kiptyah, M.Pd.; Penguji: Drs. Seno Hartono, DESS; lokus piloting awal Kab. Malinau dengan cakupan penuh 5 Kabupaten/Kota dan 55 Kecamatan se-Kaltara).
 

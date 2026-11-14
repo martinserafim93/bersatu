@@ -11,6 +11,9 @@ use DI\ContainerBuilder;
 use Slim\Factory\AppFactory;
 use Slim\Factory\ServerRequestCreatorFactory;
 
+// Mask legacy vendor deprecation notices (e.g. php-di 6.4 on PHP 8.4/8.5) so HTML/JSON output and headers stay clean.
+error_reporting(error_reporting() & ~E_DEPRECATED & ~E_USER_DEPRECATED);
+
 require __DIR__ . '/../vendor/autoload.php';
 
 EnvLoader::load(__DIR__ . '/../.env');

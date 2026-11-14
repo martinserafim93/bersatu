@@ -1,0 +1,26 @@
+{
+  "name": "Portal BERSATU - Kemenag Kalimantan Utara",
+  "short_name": "BERSATU",
+  "description": "Early Warning System (EWS) dan Promosi Kerukunan Umat Beragama Berbasis Digital Kanwil Kemenag Provinsi Kalimantan Utara.",
+  "lang": "id",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#f6f5ef",
+  "theme_color": "#0b5d46",
+  "icons": [
+    {
+      "src": "/assets/icons/icon-192.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/assets/icons/icon-512.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

@@ -176,7 +176,8 @@ class PdoWilayahRepository implements WilayahRepository
      */
     public function listKabupaten(): array
     {
-        $sql = 'SELECT DISTINCT nama_kabupaten FROM wilayah ORDER BY id ASC';
+        // GROUP BY + MIN(id) complies with MySQL 8 ONLY_FULL_GROUP_BY while preserving seed order.
+        $sql = 'SELECT nama_kabupaten FROM wilayah GROUP BY nama_kabupaten ORDER BY MIN(id) ASC';
         $stmt = $this->pdo->query($sql);
         if ($stmt === false) {
             return [];

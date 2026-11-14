@@ -9,9 +9,14 @@ use App\Application\Actions\Admin\NonaktifkanAkunAction;
 use App\Application\Actions\Admin\SetujuiAkunAction;
 use App\Application\Actions\Admin\TolakAkunAction;
 use App\Application\Actions\Auth\LoginAction;
+use App\Application\Actions\Auth\LoginPageAction;
 use App\Application\Actions\Auth\LogoutAction;
 use App\Application\Actions\Auth\MeAction;
 use App\Application\Actions\Auth\RegisterAction;
+use App\Application\Actions\Auth\RegisterPageAction;
+use App\Application\Actions\Home\BerandaSummaryApiAction;
+use App\Application\Actions\Home\HomePageAction;
+use App\Application\Actions\Home\OfflinePageAction;
 use App\Application\Actions\Master\ListKategoriIsuAction;
 use App\Application\Actions\Master\ListWilayahAction;
 use App\Application\Middleware\AuthMiddleware;
@@ -29,10 +34,12 @@ return function (App $app) {
         return $response;
     });
 
-    $app->get('/', function (Request $request, Response $response) {
-        $response->getBody()->write('Hello world!');
-        return $response;
-    });
+    $app->get('/', HomePageAction::class);
+    $app->get('/offline', OfflinePageAction::class);
+    $app->get('/auth/login', LoginPageAction::class);
+    $app->get('/auth/register', RegisterPageAction::class);
+
+    $app->get('/api/public/beranda', BerandaSummaryApiAction::class);
 
     $app->group('/api/auth', function (Group $group) {
         $group->post('/register', RegisterAction::class);

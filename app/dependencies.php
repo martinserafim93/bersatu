@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use App\Application\Settings\SettingsInterface;
+use App\Application\Views\PhpRenderer;
 use App\Infrastructure\Persistence\Database\PdoConnectionFactory;
 use App\Infrastructure\Security\IdentityCipher;
 use DI\ContainerBuilder;
@@ -29,6 +30,9 @@ return function (ContainerBuilder $containerBuilder) {
             $security = $settings->get('security');
 
             return new IdentityCipher((string) ($security['app_key'] ?? ''));
+        },
+        PhpRenderer::class => function (): PhpRenderer {
+            return new PhpRenderer(__DIR__ . '/../templates');
         },
         LoggerInterface::class => function (ContainerInterface $c) {
             $settings = $c->get(SettingsInterface::class);
