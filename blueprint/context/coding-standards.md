@@ -6,7 +6,7 @@
 
 ## PHP and Static Analysis
 
-- Declare `declare(strict_types=1);` at the top of every PHP file in `app/`, `public/`, `src/`, and `tests/`
+- Declare `declare(strict_types=1);` at the top of every PHP file in `app/`, `bin/`, `public/`, `src/`, and `tests/`
 - Follow PSR-12 coding style enforced by `phpcs.xml` (`vendor/bin/phpcs`)
 - Use short array syntax `[]` only (`Generic.Arrays.DisallowLongArraySyntax` is enforced)
 - Add explicit parameter, property, and return types where supported; keep `src/` passing PHPStan level 4 (`phpstan.neon.dist`, `vendor/bin/phpstan`)
@@ -27,7 +27,9 @@
 ## File Organization
 
 - Bootstrap and DI config: `app/*.php`
+- CLI scripts (database migration, seeding, initial superadmin): `bin/*.php`
 - Web root and front controller: `public/index.php`
+- Server-rendered PHP templates: `templates/`
 - Actions (controllers): `src/Application/Actions/[Feature]/[Verb][Noun]Action.php`
 - Middleware: `src/Application/Middleware/[Name]Middleware.php`
 - Error and shutdown handlers: `src/Application/Handlers/`
@@ -44,7 +46,7 @@
 
 ## Styling and Frontend
 
-- Render HTML pages using clean, server-rendered PHP templates (`views/` or `templates/`) without requiring a Node.js bundler
+- Render HTML pages using clean, server-rendered PHP templates (`templates/`, configured in `app/dependencies.php`) without requiring a Node.js bundler
 - Design and refine all UI surfaces using the `/impeccable` skill (`Persuade` for landing/home, `Operate` for EWS forms, verifier desk, GIS dashboard, and admin, `Read` for Chatbot Tanya, sermon bank, and harmony info, and `Experience` for Media Hub)
 - Keep all CSS, JS, and PHP source files under 1 MB per file to respect InfinityFree hosting limits
 - Use progressive enhancement and standard browser `fetch()` (same-origin with session/cookie support) for dynamic endpoints, PWA Service Worker caching, client-side JPEG compression, `IndexedDB` offline draft storage, and Leaflet.js GIS rendering

@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
-<ruleset name="Slim coding standard">
-    <description>Slim coding standard</description>
+<ruleset name="Portal BERSATU coding standard">
+    <description>Portal BERSATU PSR-12 coding standard</description>
 
     <!-- display progress -->
     <arg value="p"/>

@@ -1,14 +1,24 @@
-# How to Contribute
+# Panduan Kontribusi - Portal BERSATU
 
-## Pull Requests
+## Alur Branch & Perubahan
 
-1. Fork the Slim Skeleton repository
-2. Create a new branch for each feature or improvement
-3. Send a pull request from each feature branch to the **4.x** branch
+1. Buat branch baru dari `main` untuk setiap fitur (`feature/<nama>`), perbaikan (`fix/<nama>`), atau rollback (`rollback/<nama>`).
+2. Ikuti cakupan rencana di `blueprint/build-plan.md`, spesifikasi aktif di `blueprint/context/current-feature.md`, serta panduan di `AGENTS.md`.
+3. Gunakan pesan commit bergaya *conventional commits* (`feat:`, `fix:`, `chore:`, `docs:`) tanpa menambahkan atributsi AI pada commit maupun pull request.
 
-It is very important to separate new features or improvements into separate feature branches, and to send a
-pull request for each branch. This allows us to review and pull in new features or improvements individually.
+## Standar Kode & Desain
 
-## Style Guide
+- Patuhi PSR-12 dan larangan sintaks array panjang (`[]` saja) dengan `declare(strict_types=1);` pada setiap berkas PHP di `app/`, `bin/`, `public/`, `src/`, dan `tests/`.
+- Rujuk [blueprint/context/coding-standards.md](blueprint/context/coding-standards.md) untuk struktur Slim 4, repository PDO, keamanan enkripsi, dan cakupan pengujian.
+- Rujuk [DESIGN.md](DESIGN.md) dan [PRODUCT.md](PRODUCT.md) untuk semua perubahan antarmuka web dan PWA.
+- Jaga ukuran setiap berkas `.php`, `.js`, dan `.css` di bawah 1 MB sesuai batas hosting InfinityFree.
 
-All pull requests must adhere to the [PSR-12 standard](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-12-extended-coding-style-guide.md).
+## Verifikasi Sebelum Merge
+
+Pastikan seluruh pemeriksaan berikut lulus sebelum mengajukan review atau merge:
+
+```bash
+vendor/bin/phpcs
+vendor/bin/phpstan
+composer test
+```

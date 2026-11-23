@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 require __DIR__ . '/../vendor/autoload.php';
 
 // Pre-load PHP-DI classes and trigger autowire to avoid PHP 8.4 deprecation notices during test execution

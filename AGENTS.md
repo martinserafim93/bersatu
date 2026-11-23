@@ -19,14 +19,10 @@ Sistem ini dibangun di atas **PHP 8.4**, **Slim Framework 4**, **MySQL (`PDO` na
 1. **Digital EWS Terintegrasi** - pendaftaran mandiri yang diverifikasi `superadmin`, pelaporan lapangan "Lapor Dini" dan aduan masyarakat dengan *auto-geotagging* GPS serta penyimpanan draft offline (`IndexedDB`) untuk wilayah 3TP/*blank spot*, verifikasi berjenjang dan enkripsi identitas pelapor (*whistleblower protection* via `openssl` `AES-256-GCM`), pemetaan kerawanan spasial GIS berbasis Leaflet.js (mode publik level kecamatan dengan label netral dan mode eksekutif detail untuk pimpinan/verifikator), serta *instant alert* otomatis pascaverifikasi status `merah` via Webhook Telegram (mendukung Cloudflare Worker Relay) dan WhatsApp API.
 2. **Moderation & Tolerance Media Hub, Chatbot "Tanya" & Pusat Informasi Kerukunan** - galeri konten moderasi beragama dan ekoteologi (video tokoh agama/adat, animasi, minimal 10 infografis, podcast *"Suara Harmoni Perbatasan"*, dan Bank Naskah Khotbah penyuluh lintas agama), asisten virtual Chatbot "Tanya" berbasis pencocokan FAQ (`faq_chatbot`) untuk edukasi PBM No. 9 & No. 8 Tahun 2006 serta klarifikasi hoaks SARA perbatasan dengan *fallback* ke WhatsApp hotline FKUB, ditambah direktori geospasial rumah ibadah resmi, kalender agenda lintas iman, dan kontak sekretariat FKUB se-Kaltara.
 
-This project is built with the **AI Blueprint**, a workflow layer, not an
-app skeleton. To start a new project, scaffold the app first in an empty folder
-(create-next-app, Vite, etc.), then overlay these files on top. Never run a
-framework scaffolder inside a directory that already holds the blueprint files
-(`AGENTS.md`, `CLAUDE.md`, `.agents/`, `.claude/`, `blueprint/`); it fails
-because the directory isn't empty.
-
-The workflow is defined by the local skills and context files below.
+This project uses the **AI Blueprint** workflow layer, defined by the local skills
+and context files below. Never run a framework scaffolder inside this directory
+because it already holds the application and blueprint files (`AGENTS.md`,
+`CLAUDE.md`, `.agents/`, `.claude/`, `blueprint/`).
 
 ## Proportional engineering
 
@@ -50,6 +46,8 @@ and installed dependencies before adding machinery.
 
 ## Read these when relevant
 
+- `PRODUCT.md` - product scope, user roles, constraints, and accessibility principles (`/impeccable`)
+- `DESIGN.md` - visual design system, token contract, and UI guardrails (`/impeccable`)
 - `blueprint/config.json` - deterministic project workflow settings
 - `blueprint/workflow.md` - workflow reference for configuration, skills, dashboard activity, and checks
 - `blueprint/context/project-overview.md` - the project's source of truth
@@ -88,10 +86,13 @@ Skills: `adopt`, `audit`, `blueprint-doctor`, `blueprint-status`, `brief`,
 For this PHP / Slim Framework 4 project (managed with Composer):
 
 - Dev server: `composer start` (`php -S localhost:8080 -t public` at http://localhost:8080)
-- Docker dev server: `docker-compose up -d` (http://localhost:8080)
+- Docker dev server: `docker-compose up -d` (http://localhost:8080, image `php:8.4-cli-alpine`)
+- Database migrate: `php bin/migrate.php` (migrasi 12 tabel MySQL)
+- Database seed: `php bin/seed.php` (migrasi + seeder 55 kecamatan Kaltara, 5 kategori isu EWS, 4 kategori media)
+- Create initial superadmin: `php bin/create-superadmin.php --email=<email> --nama="<nama>" --nip-nik=<nip/nik> --wa=<wa> --wilayah-kode=<kode> [--instansi="<instansi>"]` (kata sandi lewat env `SUPERADMIN_PASSWORD` atau prompt interaktif)
 - Test: `composer test` (runs `phpunit` via `phpunit.xml`)
-- Lint (PSR-12): `vendor/bin/phpcs`
-- Typecheck / static analysis: `vendor/bin/phpstan`
+- Lint (PSR-12): `vendor/bin/phpcs` (checks `src/` and `tests/` via `phpcs.xml`)
+- Typecheck / static analysis: `vendor/bin/phpstan` (checks `src/` at level 4 via `phpstan.neon.dist`)
 - Build: None (interpreted PHP application; use `composer install` to install dependencies)
 
 Unit testing is configured with PHPUnit (`composer test`) and acts as the test

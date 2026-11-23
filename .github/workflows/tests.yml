@@ -1,49 +1,40 @@
 name: Tests
 
-on: [push, pull_request]
+on:
+    push:
+        branches: [main]
+    pull_request:
+
+permissions:
+    contents: read
 
 jobs:
     tests:
-        name: Tests PHP ${{ matrix.php }}
+        name: Tests PHP 8.4
         runs-on: ubuntu-latest
-        continue-on-error: ${{ matrix.experimental }}
-        strategy:
-            fail-fast: false
-            matrix:
-                php: [7.4, 8.0, 8.1]
-                experimental: [false]
-                include:
-                    - php: 8.1
-                      analysis: true
 
         steps:
             - name: Checkout
-              uses: actions/checkout@v2
+              uses: actions/checkout@v4
 
-            - name: Set up PHP ${{ matrix.php }}
+            - name: Set up PHP 8.4
               uses: shivammathur/setup-php@v2
               with:
-                  php-version: ${{ matrix.php }}
-                  coverage: xdebug
+                  php-version: "8.4"
+                  extensions: json, mbstring, openssl, pdo, pdo_mysql
+                  coverage: none
+
+            - name: Validate composer.json
+              run: composer validate --strict --no-check-publish
 
             - name: Install dependencies with Composer
-              uses: ramsey/composer-install@v2
+              run: composer install --no-interaction --prefer-dist --no-progress
 
-            - name: Coding standards
-              if: matrix.analysis
+            - name: Coding standards (PSR-12)
               run: vendor/bin/phpcs
 
-            - name: Static analysis
-              if: matrix.analysis
+            - name: Static analysis (PHPStan)
               run: vendor/bin/phpstan
 
-            - name: Tests
-              run: vendor/bin/phpunit --coverage-clover clover.xml
-
-            - name: Upload coverage results to Coveralls
-              if: matrix.analysis
-              env:
-                  COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-              run: |
-                  composer require php-coveralls/php-coveralls -n -W
-                  vendor/bin/php-coveralls --coverage_clover=clover.xml -v
+            - name: Unit tests (PHPUnit)
+              run: composer test

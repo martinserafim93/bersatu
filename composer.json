@@ -1,29 +1,28 @@
 {
-    "name": "slim/slim-skeleton",
-    "description": "A Slim Framework skeleton application for rapid development",
+    "name": "kemenag-kaltara/portal-bersatu",
+    "description": "Portal BERSATU - Early Warning System (EWS) dan Promosi Kerukunan Umat Beragama Berbasis Digital Kanwil Kemenag Provinsi Kalimantan Utara",
     "keywords": [
-        "microframework",
-        "rest",
-        "router",
-        "psr7"
+        "bersatu",
+        "ews",
+        "kerukunan",
+        "kemenag",
+        "kaltara",
+        "pwa",
+        "slim4"
     ],
-    "homepage": "http://github.com/slimphp/Slim-Skeleton",
     "license": "MIT",
     "authors": [
         {
-            "name": "Josh Lockhart",
-            "email": "info@joshlockhart.com",
-            "homepage": "http://www.joshlockhart.com/"
-        },
-        {
-            "name": "Pierre Berube",
-            "email": "pierre@lgse.com",
-            "homepage": "http://www.lgse.com/"
+            "name": "Kanwil Kementerian Agama Provinsi Kalimantan Utara"
         }
     ],
     "require": {
-        "php": "^7.4 || ^8.0",
+        "php": "^8.1",
         "ext-json": "*",
+        "ext-mbstring": "*",
+        "ext-openssl": "*",
+        "ext-pdo": "*",
+        "ext-pdo_mysql": "*",
         "monolog/monolog": "^2.8",
         "php-di/php-di": "^6.4",
         "slim/psr7": "^1.5",
